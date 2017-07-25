@@ -1,0 +1,86 @@
+{
+    "primo": {
+        "all": [
+            { "name": "Cormen_Leiserson_Rivest_Stein_Introduzione.pdf",
+            "file_id": "BQADBAADVAADz0jgUU1nUhNw-oFxAg" },
+            { "name": "Introduction.to.Algorithms.3rd.Edition.Sep.2010.pdf",
+            "file_id": "BQADBAADFwADKEEpUoJTASDXBstJAg" },
+            { "name": "Strutture di Dati e Algoritmi.pdf",
+            "file_id": "BQADBAADOgADS7UZUksLfXcyWDhzAg" }
+        ],
+        "am": [
+            { "name": "[Vol.1] Elementi di Analisi matematica - M. Dolcher.pdf",
+            "file_id": "BQADBAADOwADS7UZUl_9HKucnePtAg" },
+            { "name": "[Vol.2] Elementi di Analisi matematica - M. Dolcher.pdf",
+            "file_id": "BQADBAADPAADS7UZUs6al_KuXTv6Ag"}
+        ]
+    },
+
+    "secondo": {
+        "ae": [
+            { "name": "Architettura Elaboratori.pdf",
+            "file_id": "BQADBAADOgADV975Udnl_t-XrsXSAg" }
+        ],
+        "ro": [
+            { "name": "Ricerca Operativa Pappalardo Passacantando.pdf",
+            "file_id": "BQADBAADPAADZuTwUcPiNqb1vrj1Ag" }
+        ],
+        "bd": [
+            { "name": "FondamentiBasiDiDati.pdf",
+            "file_id": "BQADBAADFgADV975UctLujBVn-cUAg" }
+        ],
+        "cn": [
+            { "name": "Appunti di Calcolo Numerico - Bevilacqua Menchi.pdf",
+            "file_id": "BQADBAADmQADV97xUZQy99MyQUzwAg" }
+        ],
+        "cps": [
+            { "name": "Argomenti Di Probabilità e Statistica - R. Giuliano.pdf",
+            "file_id": "BQADBAADmwADV97xUaixVGXsvEkVAg" },
+            { "name": "probability and statistics for computer scientists - Byron.pdf",
+            "file_id": "BQADBAADnAADV97xUVFciw4_jTeLAg" }
+        ],
+        "is": [
+            { "name": "Uml e Unified Process.pdf",
+            "file_id": "BQADBAADnQADV97xUdIo7lffEDWQAg" }
+        ],
+        "pr2": [
+            { "name": "Gabbrielli Martini - Linguaggi di programmazione 2Ed.pdf",
+            "file_id": "BQADBAADTQADZuTwUUGexBQGuLsvAg" },
+            { "name": "Peter Sestoft - Programming Language Concepts.pdf",
+            "file_id": "BQADBAADSgADZuTwUctlUbeajMZRAg" },
+            { "name": "Practical Foundations for Programming Languages - Harper.pdf",
+            "file_id": "BQADBAADSwADZuTwUQ7lHn8CnE79Ag" },
+            { "name": "Programming Language Pragmatics 3Ed - Scott.pdf",
+            "file_id": "BQADBAADTAADZuTwUT4VwlQlpkjsAg" }
+        ],
+        "sol": [
+            { "name": "[Vol.1] Operating_Systems_Principles_and.pdf",
+            "file_id": "BQADBAADQwADZuTwUVGW4yRoLtOTAg" },
+            { "name": "[Vol.2] Operating_Systems_Principles_and.pdf",
+            "file_id": "BQADBAADRAADZuTwUdvMNKtW1fARAg" },
+            { "name": "[Vol.3] Operating_Systems_Principles_and.pdf",
+            "file_id": "BQADBAADRQADZuTwUZFgVmaHrd9_Ag" },
+            { "name": "[Vol.4] Operating_Systems_Principles_and.pdf",
+            "file_id": "BQADBAADRgADZuTwUWbEEtr4VdAyAg" },
+            { "name": "Advanced Programming in the UNIX Environment 3rd Edition.pdf",
+            "file_id": "BQADBAADSQADZuTwUapnQcQXlS2TAg" }
+        ]
+    },
+
+    "terzo": {
+        "iia": [
+            { "name": "Artificial Intelligence A Modern Approach.pdf",
+            "file_id": "BQADBAADOwADV975UQ8hocGNyZ5NAg" },
+            { "name": "Machine Learning - Tom Mitchell.pdf",
+            "file_id": "BQADBAADPQADV975UeURbSE45EvZAg" }
+        ],
+        "rcb": [
+            { "name": "Kurose Ross - Computer Networking: A Top Down Approach.pdf",
+            "file_id": "BQADBAADGQADKEEpUiQgpm0FtsXSAg" }
+        ],
+        "cri": [
+            { "name": "Elementi di Crittografia.pdf",
+            "file_id": "BQADBAADGAADKEEpUrf4bcpYJyLKAg" }
+        ]
+    }
+}
