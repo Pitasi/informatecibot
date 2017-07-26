@@ -1,5 +1,4 @@
 const config = require('./config.js')
-const replies = require('./replies.js')
 
 const Telegraf = require('telegraf')
 const { Router } = require('telegraf')

@@ -1,4 +1,3 @@
-const replies = require('../replies.js')
 const actionLogger = require('../action_logger.js')
 const { Extra, Markup } = require('telegraf')
 
