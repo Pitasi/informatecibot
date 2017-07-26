@@ -9,6 +9,7 @@ const handler = (ctx, next) => {
   if (ctx.message.text in shortcuts) {
     ctx.reply(shortcuts[ctx.message.text], { reply_to_message_id: replyToId})
     ctx.tg.deleteMessage(ctx.chat.id, ctx.message.message_id)
+          .catch( e => console.error(e) )
   }
 
   if (next) next()
