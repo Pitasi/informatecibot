@@ -1,5 +1,5 @@
 // Debug purpose:
-// This function gets called before dispatching any action (callbackqueries)
+// This function gets called before dispatching any action/trigger
 // TODO: we could use this for statics
 module.exports = (ctx, next) => {
   if (process.env.DEBUG)

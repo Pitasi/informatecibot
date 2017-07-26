@@ -13,6 +13,7 @@ module.exports = {
 
   // Local files that will be loaded
   files: {
-    books: './data/books.json'
+    books: './data/books.json',
+    shortcuts: './data/shortcuts.json'
   }
 }

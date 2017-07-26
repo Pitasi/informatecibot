@@ -1,0 +1,41 @@
+{
+  ".ping": ".pong",
+
+  ".bernasconi":  "http://informateci.org/discussion/24/domande-orale-bernasconi",
+  ".pagli":       "http://informateci.org/discussion/73/domande-orale-pagli",
+  ".favilli":     "http://informateci.org/discussion/795/domande-orale-favilli",
+  ".grisanti":    "http://informateci.org/discussion/737/domande-orale-grisanti",
+  ".capaccioli":  "http://informateci.org/discussion/209/domande-orale-capaccioli",
+  ".levi":        "http://informateci.org/discussion/799/domande-orale-levi",
+  ".corradini":   "http://informateci.org/discussion/25/domande-orale-corradini",
+  ".berarducci":  "http://informateci.org/discussion/44/domande-orale-berarducci-gaiffi",
+  ".gaiffi":      "http://informateci.org/discussion/44/domande-orale-berarducci-gaiffi",
+  ".barbuti":     "http://informateci.org/discussion/783/domande-orale-barbuti-milazzo\nAnni passati: http://informateci.org/discussion/26/domande-orale-mancarella-barbuti",
+  ".milazzo":     "http://informateci.org/discussion/783/domande-orale-barbuti-milazzo\nAnni passati: http://informateci.org/discussion/26/domande-orale-mancarella-barbuti",
+
+  ".baiardi":     "http://informateci.org/discussion/180/domande-orale",
+  ".danelutto":   "http://informateci.org/discussion/180/domande-orale",
+  ".albano":      "http://informateci.org/discussion/43/domande-e-orale-albano",
+  ".ghelli":      "http://informateci.org/discussion/98/domande-orale-ghelli",
+  ".turini":      "http://informateci.org/discussion/841/domande-orale-turini",
+  ".trevisan":    "http://informateci.org/discussion/790/domande-orale-trevisan\nAnni passati: http://informateci.org/discussion/383/domande-orale-giuliano",
+  ".delcorso":    "http://informateci.org/discussion/183/domande-orale",
+  ".gemignani":   "http://informateci.org/discussion/183/domande-orale",
+  ".gervasi":     "http://informateci.org/discussion/714/domande-orale-gervasi",
+  ".semini":      "http://informateci.org/discussion/718/domande-orale-semini",
+  ".gadducci":    "http://informateci.org/discussion/361/domande-orale-gadducci",
+  ".ferrari":     "http://informateci.org/discussion/235/domande-orale-ferrari",
+  ".pappalardo":  "http://informateci.org/discussion/71/domande-orale-pappalardo",
+  ".mastroeni":   "http://informateci.org/discussion/380/domande-orale-mastroeni",
+  ".chessa":      "http://informateci.org/discussion/94/domande-orale-chessa",
+  ".pelagatti":   "http://informateci.org/discussion/701/domande-orale-pelagatti",
+  ".torquati":    "http://informateci.org/discussion/720/domande-orale-laboratorio-torquati",
+
+  ".degano":      "http://informateci.org/discussion/35/domande-orale-degano",
+  ".cisternino":  "http://informateci.org/discussion/370/domande-orale-cisternino",
+  ".micheli":     "http://informateci.org/discussion/824/domande-orale-micheli-simi",
+  ".simi":        "http://informateci.org/discussion/824/domande-orale-micheli-simi",
+  ".bonuccelli":  "RCL: http://informateci.org/discussion/194/domande-orale-bonuccelli",
+
+  ".faq":         "FAQ e password: http://telegra.ph/FAQ-03-21"
+}
