@@ -19,9 +19,15 @@ const message_markup = Extra.HTML().webPreview(false).markup(m => (
 const txt = 'Ciao!\nSeleziona un bottone qui sotto per iniziare.'
 
 const handler = (ctx, next) => {
-  let query = ctx.update.callback_query
-  ctx.db.editOrSendMessage(ctx, [txt, message_markup])
-  if (query) ctx.answerCallbackQuery()
+  if (ctx.chat.type !== 'private') {
+    ctx.reply('Contattami in privato!')
+  }
+  else {
+    let query = ctx.update.callback_query
+    ctx.db.editOrSendMessage(ctx, [txt, message_markup])
+    if (query) ctx.answerCallbackQuery()
+  }
+
   if (next) next()
 }
 
