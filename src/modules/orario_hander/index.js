@@ -170,7 +170,10 @@ const urlHandler = (ctx, next) => {
         `<b>ANNO</b>: ${year}\n` +
         (course ? `<b>CORSO</b>: ${course}\n` : '') +
         `<b>LEZIONI:</b>\n${lessonsToString(lessons)}`,
-        { parse_mode: 'HTML' }
+        {
+          parse_mode: 'HTML',
+          reply_markup: Markup.inlineKeyboard([[Markup.callbackButton('Home', 'home')]])
+        }
       )
 
     }
@@ -184,7 +187,10 @@ const urlHandler = (ctx, next) => {
         `<b>CDL</b>: ${cdl}\n` +
         (course ? `<b>CORSO</b>: ${course}\n` : '') +
         `<b>LEZIONI:</b>\n${lessonsToString(lessons)}`,
-        { parse_mode: 'HTML' }
+        {
+          parse_mode: 'HTML',
+          reply_markup: Markup.inlineKeyboard([[Markup.callbackButton('Home', 'home')]])
+        }
       )
     }
     else {
