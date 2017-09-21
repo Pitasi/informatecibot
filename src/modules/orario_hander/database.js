@@ -20,7 +20,7 @@ const deleteUser = async (userId) => {
 }
 
 const startCronJob = (sendMessageFunction) => {
-  new CronJob('* * * * *', () => {
+  new CronJob('0 * * * *', () => {
     //orario.courseNames.forEach(cdl => {
       const cdl = 'INF-L' // fix needed for same course in differents cdl
 
