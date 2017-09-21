@@ -21,8 +21,8 @@ const callbackHandler = async (ctx, next) => {
           'prima dell\'inizio della lezione.\n\n'+
           '1. Vai su http://orario.org\n'+
           '2. Seleziona i corsi che ti interessano\n'+
-          '3. Manda qui il link della pagina (anche quello breve funziona!)\n' +
-          '<i>Nota:</i> invia il messaggio scrivendo solo un url valido,  ',
+          '3. Manda qui il link della pagina (anche quello breve funziona!)\n\n' +
+          '<i>Nota:</i> invia il messaggio scrivendo solo un url valido.',
           {
             parse_mode: 'HTML',
             reply_markup: Markup.inlineKeyboard([[Markup.callbackButton('Home', 'home')]])
