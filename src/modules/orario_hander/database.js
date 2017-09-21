@@ -13,9 +13,17 @@ client = redis.createClient({
   password: config.redis.password
 })
 
+const deleteUser = async (userId) => {
+  let keys = await client.keysAsync('lesson:*')
+  keys.forEach(async k => await client.sremAsync(k, `user:${userId}`))
+  await client.delAsync(`user:${userId}`)
+}
+
 const startCronJob = (sendMessageFunction) => {
-  new CronJob('* * * * * *', () => {
-    orario.courseNames.forEach(cdl => {
+  new CronJob('* * * * *', () => {
+    //orario.courseNames.forEach(cdl => {
+      const cdl = 'INF-L' // fix needed for same course in differents cdl
+
       let now = new Date()
       let course = orario.courses[cdl]
 
@@ -25,16 +33,20 @@ const startCronJob = (sendMessageFunction) => {
       }
       catch (err) { return }
 
-      let hours = Object.keys(course.timetable[day]).filter(h => {
+      let todayCourses = course.timetable[day]
+      if (!todayCourses) return
+      let hours = Object.keys(todayCourses).filter(h => {
         let [hours, minutes] = h.split('-')[0].split(':')
         let t = new Date()
         t.setHours(hours)
         t.setMinutes(minutes)
-        return t > now
+        let nextHour = new Date(now)
+        nextHour.setHours(now.getHours() + 1)
+        return t > now && t < nextHour
       })
 
       hours.forEach(h => {
-        let courses = course.timetable[day][h]
+        let courses = todayCourses[h]
         Object.keys(courses).forEach(async lessonFullId => {
           let [lessonId, course] = lessonFullId.split('_')
           let users = await client.smembersAsync(`lesson:${lessonFullId}`)
@@ -51,7 +63,7 @@ const startCronJob = (sendMessageFunction) => {
           )
         })
       })
-    })
+    //})
   }, null, true, 'Europe/Rome')
 }
 
@@ -67,24 +79,19 @@ const subscribeUserToLessons = async (lessons, link, userId) => {
     getLessonFullId(key, lessons[key])
   ))
 
-  let keys = await client.keysAsync('lesson:*')
-  keys.forEach(k => client.srem(k, `user:${userId}`))
+  await deleteUser(userId)
 
-  let sets = await client.smembers('lessons')
-
-  Object.keys(lessons).forEach(l => {
-    client.sadd(`lessons`, l)
-    client.sadd(`lesson:${getLessonFullId(l, lessons[l])}`, userId)
+  Object.keys(lessons).forEach(async l => {
+    await client.saddAsync(`lesson:${getLessonFullId(l, lessons[l])}`, userId)
   })
   client.set(`user:${userId}`, link)
 }
 
-const getUserLink = async (userId) => {
-  return await client.getAsync(`user:${userId}`)
-}
+const getUserLink = async userId => (await client.getAsync(`user:${userId}`))
 
 module.exports = {
   subscribeUserToLessons: subscribeUserToLessons,
   getUserLink: getUserLink,
-  startCronJob: startCronJob
+  startCronJob: startCronJob,
+  deleteUser: deleteUser
 }

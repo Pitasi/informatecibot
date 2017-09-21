@@ -2,28 +2,80 @@ const { URL } = require('url')
 const actionLogger = require('../../action_logger.js')
 const orario = require('../../config.js').downloads.orario
 const db = require('./database.js')
+const got = require('got')
+const { Extra, Markup } = require('telegraf')
 
-const callbackHandler = (ctx, next) => {
-    ctx.answerCallbackQuery('// TODO.')
+const callbackHandler = async (ctx, next) => {
+    ctx.answerCallbackQuery()
        .catch(e => { console.error(e) })
 
-    ctx.reply(
-      '<b>Alert personalizzati</b>\n'+
-      'Puoi registrare i corsi che frequenti per ottenere notifiche un\'ora '+
-      'prima dell\'inizio della lezione.\n\n'+
-      '1. Vai su http://orario.org\n'+
-      '2. Seleziona i corsi che ti interessano\n'+
-      '3. Manda qui il link della pagina (anche quello breve funziona!)\n' +
-      '<i>Nota:</i> invia il messaggio scrivendo solo un url valido,  ',
-      { parse_mode: 'HTML' }
-    )
+    let link = await db.getUserLink(ctx.chat.id)
+
+    if (!link) {
+      // New user!
+      ctx.db.editOrSendMessage(
+        ctx,
+        [
+          '<b>Alert personalizzati</b>\n'+
+          'Puoi registrare i corsi che frequenti per ottenere notifiche un\'ora '+
+          'prima dell\'inizio della lezione.\n\n'+
+          '1. Vai su http://orario.org\n'+
+          '2. Seleziona i corsi che ti interessano\n'+
+          '3. Manda qui il link della pagina (anche quello breve funziona!)\n' +
+          '<i>Nota:</i> invia il messaggio scrivendo solo un url valido,  ',
+          {
+            parse_mode: 'HTML',
+            reply_markup: Markup.inlineKeyboard([[Markup.callbackButton('Home', 'home')]])
+          }
+        ]
+      )
+    }
+    else {
+      // Already has a link, remind him
+      ctx.db.editOrSendMessage(
+        ctx,
+        [
+          '<b>Alert personalizzati</b>\n'+
+          'Il tuo link:\n'+
+          `${link}\n\n`+
+          '<i>Mandando un nuovo link sovrascrivi il precedente.</i>',
+          {
+            parse_mode: 'HTML',
+            reply_markup: Markup.inlineKeyboard([[Markup.callbackButton('Disativa notifiche', 'orario_delete')]])
+          }
+        ]
+      )
+
+    }
 
     next && next()
 }
 
-const parseUrl = (ctx, next) => {
+const deleteCallbackHandler = async (ctx, next) => {
+  await db.deleteUser(ctx.chat.id)
+  ctx.db.editOrSendMessage(ctx,
+    [
+      [
+        'Tutte le notifiche <b>disattivate</b>!',
+        'Puoi riabilitarle in qualsiasi momento mandandomi un link di http://orario.org.'
+      ].join('\n'),
+      {
+        parse_mode: 'HTML',
+        reply_markup: Markup.inlineKeyboard([[Markup.callbackButton('Home', 'home')]])
+      }
+    ]
+  )
+}
+
+const parseUrl = async (ctx, next) => {
   try {
-    const u = new URL(ctx.message.text)
+    let u = new URL(ctx.message.text)
+    if (u.hostname === 'orario.org') {
+      let redirect = await got(u.href, {
+        followRedirect: false
+      })
+      u = new URL(redirect.headers.location)
+    }
     ctx.parsedUrl = u
     next && next()
   }
@@ -41,13 +93,10 @@ const getLessonsFromIdList = ({
   for (let i in list) {
     let lesson = list[i]
     let details = orario.lessons[lesson]
-    if (override[lesson])
-      course = override[lesson]
     if (details.partitions)
-      details = Object.assign(details, {course: course})
+      details = Object.assign(details, {course: override[lesson] || course})
     res[lesson] = orario.lessons[lesson]
   }
-
   return res
 }
 
@@ -74,6 +123,22 @@ const getLessonsFromYear = ({
   })
 }
 
+const lessonsToString = lessons => {
+  let res = ''
+  for (let id in lessons) {
+    let l = lessons[id]
+    let course = l.course
+    let name = l.displayname || l.name
+    let professor = l.professor || (course && l.partitions[course].professor)
+    let url = l.url || (course && l.partitions[course].url)
+    let link = url ? `<a href="${url}">${name}</a>` : name
+
+    res += `- ${link}\n` +
+      `<i>${professor}</i>\n`
+  }
+  return res
+}
+
 const urlHandler = (ctx, next) => {
   let params = ctx.parsedUrl.searchParams
   let cdl = params.get('cdl')
@@ -90,22 +155,6 @@ const urlHandler = (ctx, next) => {
   }
 
   const isValidCdl = orario.courseNames.indexOf(cdl) !== -1
-  const lessonsToString = lessons => {
-    let res = ''
-    for (let id in lessons) {
-      let l = lessons[id]
-      let course = l.course
-      let name = l.displayname || l.name
-      let professor = course ? l.partitions[course].professor : l.professor
-      let url = l.url || (course && l.partitions[course].url)
-      let link = url ? `<a href="${url}">${name}</a>` : name
-
-      res += `- ${link}\n` +
-        `<i>${professor}</i>\n`
-    }
-    return res
-  }
-
   if (isValidCdl) {
     // two cases:
     // 1. all courses of a certain year
@@ -148,9 +197,7 @@ const urlHandler = (ctx, next) => {
 
 module.exports = app => {
   db.startCronJob((id, lesson, rooms, course, hours) => {
-    let professor = course
-      ? lesson.partitions[course].professor
-      : lesson.professor
+    let professor = lesson.professor || lesson.partitions[course].professor
 
     app.telegram.sendMessage(
       id,
@@ -163,5 +210,6 @@ module.exports = app => {
       .catch(err => { /* probably bot blocked by user */ })
   })
   app.actionRouter.on('orario', actionLogger, callbackHandler)
-  app.on('message', parseUrl, actionLogger, urlHandler)
+  app.actionRouter.on('orario_delete', actionLogger, deleteCallbackHandler)
+  app.hears(/(vittgam|orario)/i, parseUrl, actionLogger, urlHandler)
 }
