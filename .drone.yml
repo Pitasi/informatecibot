@@ -1,0 +1,4 @@
+pipeline:
+  publish:
+    image: plugins/docker
+    repo: pitasi/informatecibot
