@@ -1,7 +1,14 @@
 pipeline:
-  build-image:
+  build_image:
     image: docker
     commands:
-      - docker build . -t pitasi/informatecibot
+      - docker build . -t pitasi/informatecibot:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+  update_rancher:
+    image: peloton/drone-rancher
+    url: http://evilcorp.gq:8080
+    service: ap-generic/informatecibot
+    docker_image: pitasi/informatecibot:latest
+    confirm: true
+    secrets: [ RANCHER_ACCESS_KEY, RANCHER_SECRET_KEY ]
