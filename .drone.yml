@@ -1,8 +1,7 @@
-workspace:
-  base: /base
-  path: src/github.com/pitasi/informatecibot
-
 pipeline:
-  publish:
-    image: plugins/docker
-    repo: pitasi/informatecibot
+  build-image:
+    image: docker
+    commands:
+      - docker build . -t pitasi/informatecibot
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
