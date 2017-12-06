@@ -1,11 +1,11 @@
 pipeline {
-    def app
-
     agent {
         docker { image 'docker' }
     }
     
     stages {
+        def app
+
         stage('Clone repository') {
             checkout scm
         }
