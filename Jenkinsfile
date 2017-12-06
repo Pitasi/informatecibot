@@ -4,19 +4,13 @@ pipeline {
     }
     
     stages {
-        def app
-
-        stage('Clone repository') {
-            checkout scm
-        }
-
-        stage('Build image') {
-            app = docker.build("pitasi/informatecibot")
-        }
-
-        stage('Push image') {
-            docker.withRegistry('https://registry.evilcorp.gq:5000', 'docker-registry-login') {
-                app.push("latest")
+        stage('Clone, build and push') {
+            steps {
+                checkout scm
+                def app = docker.build("pitasi/informatecibot")
+                docker.withRegistry('https://registry.evilcorp.gq:5000', 'docker-registry-login') {
+                    app.push("latest")
+                }
             }
         }
     }
