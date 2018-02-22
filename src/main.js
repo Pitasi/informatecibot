@@ -8,5 +8,9 @@ require('./file_manager.js').download(() => {
                  require(__dirname + '/modules/' + mod)(app)
                })
 
+  app.catch((err) => {
+    console.error('Unhandled Telegraf error:')
+    console.error(err)
+  })
   app.startPolling()
 })
