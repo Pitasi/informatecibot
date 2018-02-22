@@ -1,4 +1,5 @@
 const { Extra, Markup } = require('telegraf')
+const { admins } = require('../../config')
 const actionLogger = require('../../action_logger.js')
 
 const indexHandler = (ctx, next) => {
@@ -19,8 +20,21 @@ const indexHandler = (ctx, next) => {
   if (next) next()
 }
 
+const forwardDocumentToAdmins = (ctx, next) => {
+  admins.forEach(adminId => {
+    ctx.telegram.forwardMessage(adminId, ctx.chat.id, ctx.message.message_id)
+    ctx.telegram.sendMessage(adminId, ctx.message.document.file_id)
+  })
+  ctx.reply('Grazie! Il file verrà esaminato ed eventualmente aggiunto al più presto.');
+
+  if (next) {
+    return next();
+  }
+}
+
 module.exports = app => {
   app.actionRouter.on('download', actionLogger, indexHandler)
   app.actionRouter.on('storage', actionLogger, require('./storage.js'))
   app.actionRouter.on('books', actionLogger, require('./books.js'))
+  app.on('document', actionLogger, forwardDocumentToAdmins)
 }

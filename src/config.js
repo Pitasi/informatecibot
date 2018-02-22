@@ -3,7 +3,9 @@ module.exports = {
   token:  process.env.TOKEN,
 
   // for multiple admins use spaces: ADMINS="123 999 234"
-  admins: (process.env.ADMINS || '').split(' '),
+  admins: process.env.ADMINS ?
+            process.env.ADMINS.split(',').map(s => (parseInt(s, 10))) :
+            [],
 
   // URLs that wil be downloaded
   urls: {
