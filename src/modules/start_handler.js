@@ -9,7 +9,7 @@ const message_markup = Extra.HTML().webPreview(false).markup(m => (
       m.urlButton('Pastebin', 'http://paste.informateci.org')
     ],
     [
-      m.callbackButton('Orario', 'orario'),
+      //m.callbackButton('Orario', 'orario'),
       m.callbackButton('Aule Libere', 'aule:-1'),
       m.callbackButton('Download', 'download')
     ]
