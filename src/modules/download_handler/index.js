@@ -21,11 +21,13 @@ const indexHandler = (ctx, next) => {
 }
 
 const forwardDocumentToAdmins = (ctx, next) => {
-  admins.forEach(adminId => {
-    ctx.telegram.forwardMessage(adminId, ctx.chat.id, ctx.message.message_id)
-    ctx.telegram.sendMessage(adminId, ctx.message.document.file_id)
-  })
-  ctx.reply('Grazie! Il file verrà esaminato ed eventualmente aggiunto al più presto.');
+  if (ctx.chat.type === 'private) {
+    admins.forEach(adminId => {
+      ctx.telegram.forwardMessage(adminId, ctx.chat.id, ctx.message.message_id);
+      ctx.telegram.sendMessage(adminId, ctx.message.document.file_id);
+    });
+    ctx.reply('Grazie! Il file verrà esaminato ed eventualmente aggiunto al più presto.');
+  }
 
   if (next) {
     return next();
