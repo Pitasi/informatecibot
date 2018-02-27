@@ -21,7 +21,7 @@ const indexHandler = (ctx, next) => {
 }
 
 const forwardDocumentToAdmins = (ctx, next) => {
-  if (ctx.chat.type === 'private) {
+  if (ctx.chat.type === 'private') {
     admins.forEach(adminId => {
       ctx.telegram.forwardMessage(adminId, ctx.chat.id, ctx.message.message_id);
       ctx.telegram.sendMessage(adminId, ctx.message.document.file_id);
