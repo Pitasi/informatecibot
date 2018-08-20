@@ -22,7 +22,12 @@ const download = (url, done) => {
     let body = ''
     res.on('data', chunk=> body += chunk)
     res.on('end', () => {
-      config.downloads[url] = JSON.parse(body)
+      try {
+        config.downloads[url] = JSON.parse(body)
+      } catch (err) {
+        console.error('Error parsing json for', full_url)
+        console.error(body)
+      }
       if (done) done()
     })
   })

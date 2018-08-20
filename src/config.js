@@ -10,7 +10,7 @@ module.exports = {
   // URLs that wil be downloaded
   urls: {
     orario:   'https://www.vittgam.net/orario-inf-unipi.json',
-    storage:  'http://storage.informateci.org/scan.php'
+    storage:  'https://storage.informateci.org/scan.php'
   },
 
   // Local files that will be loaded
