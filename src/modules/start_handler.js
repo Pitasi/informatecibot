@@ -5,12 +5,11 @@ const { Extra, Markup } = require('telegraf')
 const message_markup = Extra.HTML().webPreview(false).markup(m => (
   m.inlineKeyboard([
     [
-      m.urlButton('Forum', 'http://informateci.org/'),
-      m.urlButton('Pastebin', 'http://paste.informateci.org')
+      m.urlButton('Forum', 'http://informateci.it/'),
     ],
     [
       //m.callbackButton('Orario', 'orario'),
-      m.callbackButton('Aule Libere', 'aule:-1'),
+      m.urlButton('Aule Libere', 'https://t.me/GAPUNIPI_Bot'),
       m.callbackButton('Download', 'download')
     ]
   ])
